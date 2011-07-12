@@ -29,27 +29,4 @@ describe "Vidibus::VersionScheduler::Mongoid" do
       book.scheduled_versions.first.should be_a(Vidibus::VersionScheduler::ScheduledVersion)
     end
   end
-
-  describe "#sync_scheduled_versions!" do
-    before do
-      now
-      past_version
-      future_version
-      book.reload
-    end
-
-    it "should schedule future versions only" do
-      book.scheduled_versions.delete_all
-      book.sync_scheduled_versions!
-      scheduled_versions = book.reload.scheduled_versions
-      scheduled_versions.should have(1).item
-      scheduled_versions.first.version_uuid.should eql(future_version.uuid)
-    end
-
-    it "should remove all scheduled versions if no versions exist anymore" do
-      book.versions.delete_all
-      book.reload.sync_scheduled_versions!
-      book.scheduled_versions.should have(:no).items
-    end
-  end
 end
