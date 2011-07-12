@@ -18,6 +18,17 @@ describe "Vidibus::VersionScheduler::VersionObserver" do
   before {stub_time("2011-07-01 12:01")}
 
   describe "saving a version" do
+    it "should enable scheduling if the versioned object should be scheduled" do
+      mock.any_instance_of(Vidibus::VersionScheduler::VersionObserver).schedule.with_any_args
+      future_version
+    end
+
+    it "should not enable scheduling unless the versioned object includes Vidibus::VersionScheduler::Mongoid" do
+      stub(Book).ancestors {[]}
+      dont_allow.any_instance_of(Vidibus::VersionScheduler::VersionObserver).schedule.with_any_args
+      future_version
+    end
+
     it "should schedule it if it's future" do
       future_version
       scheduled_versions = book.reload.scheduled_versions

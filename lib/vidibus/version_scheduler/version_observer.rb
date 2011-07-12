@@ -10,7 +10,7 @@ module Vidibus
       protected
 
       def scheduled?(version)
-        version.versioned.respond_to?(:scheduled_versions)
+        version.versioned.class.ancestors.include?(Vidibus::VersionScheduler::Mongoid)
       end
 
       def schedule(version)
