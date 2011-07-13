@@ -10,6 +10,7 @@ module Vidibus
         return unless versioned = version.versioned
         begin
           versioned.migrate!(version.number)
+          ScheduledVersion.where(:version_uuid => version.uuid).destroy_all
         rescue Vidibus::Versioning::MigrationError
         end
       end

@@ -8,7 +8,7 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
   let(:future_version) do
     book.version(2, :title => "title 2").tap do |v|
       v.version_object.uuid = "a02099608baa012e2ee258b035f038ab"
-      v.version_object.created_at = tomorrow
+      v.updated_at = tomorrow
       v.save
     end.version_object
   end
@@ -45,6 +45,22 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
       future_version
       stub.any_instance_of(Book).migrate!(2) {raise(Vidibus::Versioning::MigrationError)}
       job.perform
+    end
+
+    it "should destroy the scheduled version after a successful migration" do
+      future_version
+      stub.any_instance_of(Book).migrate!(2) {true}
+      job.perform
+      Vidibus::VersionScheduler::ScheduledVersion.count.should eql(0)
+    end
+
+    it "should not destroy any other scheduled versions" do
+      another_book = Book.create({:title => "title 1", :text => "text 1"})
+      another_book.version(:new).update_attributes!(:title => "new title", :updated_at => tomorrow)
+      future_version
+      stub.any_instance_of(Book).migrate!(2) {true}
+      job.perform
+      Vidibus::VersionScheduler::ScheduledVersion.count.should eql(1)
     end
   end
 end
