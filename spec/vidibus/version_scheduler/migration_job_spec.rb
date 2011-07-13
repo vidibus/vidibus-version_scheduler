@@ -40,5 +40,11 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
       mock.any_instance_of(Book).migrate!(2)
       job.perform
     end
+
+    it "should handle migration errors" do
+      future_version
+      stub.any_instance_of(Book).migrate!(2) {raise(Vidibus::Versioning::MigrationError)}
+      job.perform
+    end
   end
 end

@@ -8,7 +8,10 @@ module Vidibus
       def perform
         return unless version = Vidibus::Versioning::Version.where(:uuid => version_uuid).first
         return unless versioned = version.versioned
-        versioned.migrate!(version.number)
+        begin
+          versioned.migrate!(version.number)
+        rescue Vidibus::Versioning::MigrationError
+        end
       end
     end
   end
