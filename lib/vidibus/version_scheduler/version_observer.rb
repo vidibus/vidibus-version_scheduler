@@ -7,6 +7,10 @@ module Vidibus
         schedule(version) if scheduled?(version)
       end
 
+      def after_destroy(version)
+        unschedule(version) if scheduled?(version)
+      end
+
       protected
 
       def scheduled?(version)
@@ -19,7 +23,14 @@ module Vidibus
           different = scheduled.where(:run_at.ne => version.created_at)
           different.destroy_all if different.any?
           ScheduledVersion.create!(:version_uuid => version.uuid, :scheduled => version.versioned) unless scheduled.any?
-        elsif scheduled.any?
+        else
+          unschedule(version)
+        end
+      end
+
+      def unschedule(version)
+        scheduled = ScheduledVersion.where(:version_uuid => version.uuid)
+        if scheduled.any?
           scheduled.destroy_all
         end
       end

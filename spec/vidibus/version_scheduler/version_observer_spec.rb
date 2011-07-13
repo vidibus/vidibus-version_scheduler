@@ -68,4 +68,13 @@ describe "Vidibus::VersionScheduler::VersionObserver" do
       book.reload.scheduled_versions.should have(1).item
     end
   end
+
+  describe "destroying a version" do
+    it "should destroy the scheduled version" do
+      future_version
+      scheduled_version = book.reload.scheduled_versions.first
+      future_version.destroy
+      expect {scheduled_version.reload}.to raise_error(Mongoid::Errors::DocumentNotFound)
+    end
+  end
 end
