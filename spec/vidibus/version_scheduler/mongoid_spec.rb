@@ -28,5 +28,11 @@ describe "Vidibus::VersionScheduler::Mongoid" do
       book.reload.scheduled_versions.should have(1).item
       book.scheduled_versions.first.should be_a(Vidibus::VersionScheduler::ScheduledVersion)
     end
+
+    it "should not prevent the versioned object from saving, if invalid" do
+      future_version
+      stub.any_instance_of(Vidibus::VersionScheduler::ScheduledVersion).valid? {false}
+      future_version.save.should be_true
+    end
   end
 end

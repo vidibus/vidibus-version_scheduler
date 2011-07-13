@@ -4,7 +4,8 @@ module Vidibus
       extend ActiveSupport::Concern
 
       included do
-        embeds_many :scheduled_versions, :as => :scheduled, :class_name => "Vidibus::VersionScheduler::ScheduledVersion"
+        embeds_many :scheduled_versions, :as => :scheduled, :validate => false,
+          :class_name => "Vidibus::VersionScheduler::ScheduledVersion"
       end
     end
   end
