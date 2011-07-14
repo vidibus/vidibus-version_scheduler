@@ -35,4 +35,8 @@ describe "Vidibus::VersionScheduler::Mongoid" do
       future_version.save.should be_true
     end
   end
+
+  describe "#next_scheduled_version" do
+    it "should be spec'd"
+  end
 end
