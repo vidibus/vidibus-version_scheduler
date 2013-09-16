@@ -5,7 +5,7 @@ describe "Vidibus::VersionScheduler::ScheduledVersion" do
   let(:tomorrow) {now + 1.day}
   let(:book) {Book.create({:title => "title 1", :text => "text 1"})}
   let(:future_version) do
-    book.version(2, :title => "title 2").tap do |v|
+    book.version(:next, :title => "title 2").tap do |v|
       v.updated_at = tomorrow
       v.save
     end.version_object

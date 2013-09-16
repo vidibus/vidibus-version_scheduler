@@ -5,7 +5,7 @@ describe "Vidibus::VersionScheduler::VersionObserver" do
   let(:new_book) {Book.new(book_attributes)}
   let(:book) {Book.create(book_attributes)}
   let(:future_version) do
-    book.version(2, :title => "title 2").tap do |v|
+    book.version(:next, :title => "title 2").tap do |v|
       v.updated_at = 1.day.since
       v.save
     end.version_object
@@ -48,7 +48,7 @@ describe "Vidibus::VersionScheduler::VersionObserver" do
 
     it "should not remove other scheduled items if it's meant to remove just one" do
       version = future_version
-      new_version = book.version(3, :title => "title 3").tap do |v|
+      new_version = book.version(:new, :title => "title 3").tap do |v|
         v.updated_at = 1.day.since
         v.save
       end.version_object
