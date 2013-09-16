@@ -60,7 +60,7 @@ describe "Vidibus::VersionScheduler::ScheduledVersion" do
 
     it "should handle a DocumentNotFound error" do
       this.job_id = "4e181aecfe197f75a900000c"
-      expect {this.job}.not_to raise_error(Mongoid::Errors::DocumentNotFound)
+      expect { this.job }.not_to raise_error
     end
   end
 end

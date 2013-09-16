@@ -20,7 +20,7 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
     end
 
     it "should pass with a version uuid" do
-      expect {job}.not_to raise_error(ArgumentError)
+      expect { job }.not_to raise_error
     end
   end
 
