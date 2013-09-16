@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   s.add_dependency "mongoid", "~> 2"
   s.add_dependency "delayed_job"
   s.add_dependency "delayed_job_mongoid"
-  s.add_dependency "vidibus-uuid"
   s.add_dependency "vidibus-versioning", ' >= 0.2.0'
 
   s.add_development_dependency "bundler", ">= 1.0.0"
