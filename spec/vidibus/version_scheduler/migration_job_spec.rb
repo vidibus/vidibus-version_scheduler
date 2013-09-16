@@ -15,7 +15,8 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
 
   describe "initializing" do
     it "should fail without params" do
-      expect {Vidibus::VersionScheduler::MigrationJob.new}.to raise_error(ArgumentError)
+      expect { Vidibus::VersionScheduler::MigrationJob.new }.
+        to raise_error(ArgumentError)
     end
 
     it "should pass with a version uuid" do
@@ -25,7 +26,8 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
 
   describe "#perform" do
     it "should fetch the proper version" do
-      mock(Vidibus::Versioning::Version).where(:uuid => "a02099608baa012e2ee258b035f038ab") {OpenStruct.new}
+      mock(Vidibus::Versioning::Version).
+        where(:uuid => "a02099608baa012e2ee258b035f038ab") { OpenStruct.new }
       job.perform
     end
 
@@ -43,7 +45,9 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
 
     it "should handle migration errors" do
       future_version
-      stub.any_instance_of(Book).migrate!(2) {raise(Vidibus::Versioning::MigrationError)}
+      stub.any_instance_of(Book).migrate!(2) do
+        raise(Vidibus::Versioning::MigrationError)
+      end
       job.perform
     end
 
@@ -55,8 +59,10 @@ describe "Vidibus::VersionScheduler::MigrationJob" do
     end
 
     it "should not destroy any other scheduled versions" do
-      another_book = Book.create({:title => "title 1", :text => "text 1"})
-      another_book.version(:new).update_attributes!(:title => "new title", :updated_at => tomorrow)
+      another_book = Book.create(:title => "title 1", :text => "text 1")
+      another_book.version(:new).update_attributes!({
+        :title => "new title", :updated_at => tomorrow
+      })
       future_version
       stub.any_instance_of(Book).migrate!(2) {true}
       job.perform
