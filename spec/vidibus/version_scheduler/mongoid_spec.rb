@@ -20,7 +20,7 @@ describe "Vidibus::VersionScheduler::Mongoid" do
 
   describe "#scheduled_versions" do
     it "should be an empty array by default" do
-      new_book.scheduled_versions.should eql([])
+      new_book.scheduled_versions.should eq([])
     end
 
     it "should contain scheduled versions that have created by the VersionObserver" do
