@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/vidibus/vidibus-version_scheduler"
   s.summary     = "Provides scheduling of future versions"
   s.description = "Schedules migration to future versions created by Vidibus::Versioning."
+  s.license     = 'MIT'
 
   s.required_rubygems_version = ">= 1.3.6"
   s.rubyforge_project         = "vidibus-version_scheduler"
