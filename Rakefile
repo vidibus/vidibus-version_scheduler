@@ -22,4 +22,3 @@ Rake::RDocTask.new do |rdoc|
   rdoc.options << "--charset=utf-8"
 end
 
-task :default => :rcov
