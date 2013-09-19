@@ -33,4 +33,4 @@ migrate your model to that version at the specified time.
 
 ## Copyright
 
-&copy; 2011 Andre Pankratz. See LICENSE for details.
+&copy; 2011-2013 Andre Pankratz. See LICENSE for details.
