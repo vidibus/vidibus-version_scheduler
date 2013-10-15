@@ -1,4 +1,4 @@
-# Vidibus::VersionScheduler [![Build Status](https://travis-ci.org/vidibus/vidibus-version_scheduler.png)](https://travis-ci.org/vidibus/vidibus-version_scheduler)
+# Vidibus::VersionScheduler [![Build Status](https://travis-ci.org/vidibus/vidibus-version_scheduler.png)](https://travis-ci.org/vidibus/vidibus-version_scheduler) [![Code Climate](https://codeclimate.com/github/vidibus/vidibus-version_scheduler.png)](https://codeclimate.com/github/vidibus/vidibus-version_scheduler)
 
 Schedules migration to future versions created by Vidibus::Versioning.
 
