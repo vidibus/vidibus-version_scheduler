@@ -22,8 +22,9 @@ class Book
 end
 ```
 
-Whenever a version gets created that has a future `created_at` timestamp, a `DelayedJob` will be created to
-migrate your model to that version at the specified time.
+Whenever a version gets created that has a future `created_at` timestamp, a 
+`DelayedJob` will be created to migrate your model to that version at the 
+specified time. The job will be added to a queue named "versioning".
 
 
 ## TODO
