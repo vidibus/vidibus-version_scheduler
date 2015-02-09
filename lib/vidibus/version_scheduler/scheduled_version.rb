@@ -36,7 +36,11 @@ module Vidibus
       def ensure_job
         return if job
         if version and Time.now < run_at
-          @job = Delayed::Job.enqueue(MigrationJob.new(version_uuid), :priority => 1, :run_at => run_at)
+          @job = Delayed::Job.enqueue(MigrationJob.new(version_uuid), {
+            priority: 1,
+            run_at: run_at,
+            queue: 'versioning'
+          })
           self.job_id = @job.id
         end
       end

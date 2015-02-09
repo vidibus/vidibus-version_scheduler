@@ -58,6 +58,11 @@ describe "Vidibus::VersionScheduler::ScheduledVersion" do
       YAML.load(this.job.handler).should eql(Vidibus::VersionScheduler::MigrationJob.new(this.version_uuid))
     end
 
+    it 'should add job to "versioning" queue' do
+      this.save!
+      this.job.queue.should eq('versioning')
+    end
+
     it "should handle a DocumentNotFound error" do
       this.job_id = "4e181aecfe197f75a900000c"
       expect { this.job }.not_to raise_error
