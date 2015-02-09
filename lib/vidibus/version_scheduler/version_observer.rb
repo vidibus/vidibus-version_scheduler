@@ -14,7 +14,8 @@ module Vidibus
       protected
 
       def scheduled?(version)
-        version.versioned_type.constantize.ancestors.include?(Vidibus::VersionScheduler::Mongoid)
+        version.versioned_type.constantize.
+          ancestors.include?(Vidibus::VersionScheduler::Mongoid)
       end
 
       def schedule(version)
